@@ -1,0 +1,80 @@
+# 신천지 뉴스 텔레그램 알림 봇
+
+네이버 뉴스에서 **"신천지"** 관련 새 기사가 올라오면 텔레그램으로 알려주는 봇입니다.
+서버 없이 **GitHub Actions**로 동작하며, 하루 3번(오전 10시 / 오후 1시 / 오후 6시, 한국시간)
+자동 실행됩니다.
+
+## 동작 방식
+
+1. 네이버 뉴스 검색 오픈API로 "신천지" 키워드 최신 기사를 최대 100건 가져옵니다.
+2. 저장소에 커밋되어 있는 `seen.json`에 기록된, 이미 알림을 보낸 기사와 비교합니다.
+3. **새 기사만** 텔레그램으로 전송하고, `seen.json`을 갱신해 다시 커밋합니다.
+4. 새 기사가 없으면 아무 메시지도 보내지 않습니다.
+5. 봇을 처음 실행할 때는 그 시점의 기존 기사들을 기준선으로만 저장하고, 알림은 보내지
+   않습니다(과거 기사가 한꺼번에 쏟아지는 것을 방지).
+
+## 준비물
+
+### 1. 네이버 검색 오픈API 키 발급
+
+1. https://developers.naver.com/apps/#/register 접속 (네이버 로그인 필요)
+2. 애플리케이션 등록 → 사용 API에서 **검색(Search)** 선택
+3. 등록 후 발급되는 **Client ID / Client Secret**을 기록해둡니다.
+
+### 2. 텔레그램 봇 생성
+
+1. 텔레그램에서 [@BotFather](https://t.me/BotFather)와 대화 시작
+2. `/newbot` 입력 후 안내에 따라 봇 이름 설정
+3. 발급되는 **토큰**(예: `123456789:AAExxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)을 기록해둡니다.
+4. 알림을 받을 본인 계정으로 그 봇과 대화를 한 번 시작합니다(아무 메시지나 전송, 예: `/start`).
+5. **Chat ID 확인**: 브라우저에서 아래 주소를 열어 `"chat":{"id":...}` 값을 확인합니다.
+   ```
+   https://api.telegram.org/bot<발급받은 토큰>/getUpdates
+   ```
+   (그룹방으로 받고 싶다면 봇을 그룹에 초대한 뒤 그룹에서 메시지를 보내고 동일하게 확인)
+
+## GitHub Secrets 등록
+
+이 저장소의 **Settings → Secrets and variables → Actions → New repository secret**에서
+아래 4개를 등록합니다.
+
+| 이름 | 값 |
+|---|---|
+| `NAVER_CLIENT_ID` | 네이버 오픈API Client ID |
+| `NAVER_CLIENT_SECRET` | 네이버 오픈API Client Secret |
+| `TELEGRAM_BOT_TOKEN` | 텔레그램 봇 토큰 |
+| `TELEGRAM_CHAT_ID` | 알림 받을 chat id |
+
+검색어를 "신천지"가 아닌 다른 키워드로 바꾸고 싶다면, 같은 화면의 **Variables** 탭에서
+`NEWS_QUERY` 변수를 추가하면 됩니다 (없으면 기본값 "신천지" 사용).
+
+## 실행 확인
+
+Secrets 등록 후 저장소의 **Actions** 탭 → `Naver News Notifier` 워크플로 →
+**Run workflow** 버튼으로 수동 실행해 정상 동작하는지 확인할 수 있습니다.
+첫 실행은 "기준선 저장"만 하고 알림을 보내지 않으니, 실제 알림이 오는지 확인하려면
+두 번째 수동 실행부터 확인하시면 됩니다(그 사이 새 기사가 올라왔어야 합니다).
+
+이후에는 매일 한국시간 10:00 / 13:00 / 18:00에 자동으로 실행됩니다
+(`.github/workflows/notify.yml`의 cron 스케줄, GitHub Actions는 UTC 기준이라
+UTC 01:00 / 04:00 / 09:00으로 등록되어 있습니다).
+
+## 로컬 테스트 (선택)
+
+```bash
+pip install -r requirements.txt
+export NAVER_CLIENT_ID=...
+export NAVER_CLIENT_SECRET=...
+export TELEGRAM_BOT_TOKEN=...
+export TELEGRAM_CHAT_ID=...
+python news_bot.py
+```
+
+## 파일 구성
+
+```
+news_bot.py                 # 메인 스크립트
+requirements.txt            # 의존성 (requests)
+seen.json                   # 이미 알림 보낸 기사 기록 (워크플로가 자동으로 갱신/커밋)
+.github/workflows/notify.yml  # 하루 3회 스케줄 실행
+```

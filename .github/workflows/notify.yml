@@ -1,0 +1,50 @@
+name: Naver News Notifier
+
+on:
+  schedule:
+    # KST 10:00 / 13:00 / 18:00 == UTC 01:00 / 04:00 / 09:00
+    - cron: "0 1,4,9 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: naver-news-notifier
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run news bot
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          NEWS_QUERY: ${{ vars.NEWS_QUERY }}
+        run: python news_bot.py
+
+      - name: Commit updated seen.json
+        run: |
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          if ! git diff --quiet -- seen.json; then
+            git add seen.json
+            git commit -m "chore: update seen articles"
+            git push
+          else
+            echo "No changes to commit."
+          fi
