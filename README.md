@@ -6,22 +6,21 @@
 
 ## 동작 방식
 
-1. 네이버 뉴스 검색 오픈API로 "신천지" 키워드 최신 기사를 최대 100건 가져옵니다.
+1. 네이버 뉴스 검색 결과 페이지(`search.naver.com`)에서 "신천지" 키워드 최신 기사를
+   최대 30건 가져옵니다 (별도 API 키 불필요).
 2. 저장소에 커밋되어 있는 `seen.json`에 기록된, 이미 알림을 보낸 기사와 비교합니다.
 3. **새 기사만** 텔레그램으로 전송하고, `seen.json`을 갱신해 다시 커밋합니다.
 4. 새 기사가 없으면 아무 메시지도 보내지 않습니다.
 5. 봇을 처음 실행할 때는 그 시점의 기존 기사들을 기준선으로만 저장하고, 알림은 보내지
    않습니다(과거 기사가 한꺼번에 쏟아지는 것을 방지).
 
+> 네이버 뉴스 검색 페이지의 HTML 구조가 나중에 바뀌면 파싱이 깨질 수 있습니다.
+> Actions 로그에 `[warn] 0 articles parsed...` 메시지가 보이면 이 저장소 이슈로
+> 알려주세요 — 선택자(`news_bot.py`의 `a.news_tit`, `a.press` 부분)만 손보면 됩니다.
+
 ## 준비물
 
-### 1. 네이버 검색 오픈API 키 발급
-
-1. https://developers.naver.com/apps/#/register 접속 (네이버 로그인 필요)
-2. 애플리케이션 등록 → 사용 API에서 **검색(Search)** 선택
-3. 등록 후 발급되는 **Client ID / Client Secret**을 기록해둡니다.
-
-### 2. 텔레그램 봇 생성
+### 텔레그램 봇 생성
 
 1. 텔레그램에서 [@BotFather](https://t.me/BotFather)와 대화 시작
 2. `/newbot` 입력 후 안내에 따라 봇 이름 설정
@@ -36,12 +35,10 @@
 ## GitHub Secrets 등록
 
 이 저장소의 **Settings → Secrets and variables → Actions → New repository secret**에서
-아래 4개를 등록합니다.
+아래 2개를 등록합니다.
 
 | 이름 | 값 |
 |---|---|
-| `NAVER_CLIENT_ID` | 네이버 오픈API Client ID |
-| `NAVER_CLIENT_SECRET` | 네이버 오픈API Client Secret |
 | `TELEGRAM_BOT_TOKEN` | 텔레그램 봇 토큰 |
 | `TELEGRAM_CHAT_ID` | 알림 받을 chat id |
 
@@ -63,8 +60,6 @@ UTC 01:00 / 04:00 / 09:00으로 등록되어 있습니다).
 
 ```bash
 pip install -r requirements.txt
-export NAVER_CLIENT_ID=...
-export NAVER_CLIENT_SECRET=...
 export TELEGRAM_BOT_TOKEN=...
 export TELEGRAM_CHAT_ID=...
 python news_bot.py
@@ -74,7 +69,7 @@ python news_bot.py
 
 ```
 news_bot.py                 # 메인 스크립트
-requirements.txt            # 의존성 (requests)
+requirements.txt            # 의존성 (requests, beautifulsoup4)
 seen.json                   # 이미 알림 보낸 기사 기록 (워크플로가 자동으로 갱신/커밋)
 .github/workflows/notify.yml  # 하루 3회 스케줄 실행
 ```
