@@ -37,6 +37,26 @@ REQUEST_HEADERS = {
 }
 
 
+def find_press(title_anchor, max_levels=8):
+    """제목 링크에서 위로 올라가며 같은 카드 안의 언론사 링크를 찾는다.
+
+    네이버 검색 결과 카드의 클래스명은 빌드마다 무작위 해시라 CSS 클래스로
+    선택할 수 없다. 대신 data-heatmap-target 속성(.tit=제목, .prof=언론사)은
+    안정적으로 유지되므로 이를 기준으로 같은 카드 내에서 언론사 링크를 찾는다.
+    """
+    node = title_anchor
+    for _ in range(max_levels):
+        node = node.parent
+        if node is None:
+            break
+        prof = node.select_one('a[data-heatmap-target=".prof"]')
+        if prof:
+            text = prof.get_text(strip=True)
+            if text:
+                return text
+    return ""
+
+
 def fetch_news():
     items = []
     seen_links = set()
@@ -48,37 +68,17 @@ def fetch_news():
         resp.raise_for_status()
 
         soup = BeautifulSoup(resp.text, "html.parser")
-        anchors = soup.select("a.news_tit")
-        if not anchors:
-            marker_idx = resp.text.find("news.naver.com", 45000)
-            if marker_idx == -1:
-                marker_idx = resp.text.find("news.naver.com")
-            if marker_idx == -1:
-                marker_idx = 45000
-            start_idx = max(marker_idx - 400, 0) + 3000
-            snippet = " ".join(resp.text[start_idx : start_idx + 4500].split())
-            print(
-                f"[debug] page={page} status={resp.status_code} html_len={len(resp.text)} "
-                f"marker_idx={marker_idx} snippet={snippet!r}",
-                file=sys.stderr,
-            )
+        title_anchors = soup.select('a[data-heatmap-target=".tit"]')
+        if not title_anchors:
             break
 
-        for a in anchors:
+        for a in title_anchors:
             link = a.get("href")
-            title = a.get("title") or a.get_text(strip=True)
+            title = a.get_text(strip=True)
             if not link or link in seen_links:
                 continue
             seen_links.add(link)
-
-            press = ""
-            container = a.find_parent("div", class_="news_area")
-            if container:
-                press_tag = container.select_one("a.press")
-                if press_tag:
-                    press = press_tag.get_text(strip=True)
-
-            items.append({"title": title, "link": link, "press": press})
+            items.append({"title": title, "link": link, "press": find_press(a)})
 
     if not items:
         print(
