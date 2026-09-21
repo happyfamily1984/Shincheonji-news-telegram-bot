@@ -37,21 +37,33 @@ REQUEST_HEADERS = {
 }
 
 
+NEW_WINDOW_LABEL = "새 창 열림"  # 네이버가 target="_blank" 링크마다 넣는 스크린리더용 숨김 문구
+
+
+def clean_link_text(tag):
+    """앵커 텍스트에서 스크린리더용 숨김 문구('새 창 열림')를 제거한다."""
+    text = tag.get_text(strip=True)
+    while text.endswith(NEW_WINDOW_LABEL):
+        text = text[: -len(NEW_WINDOW_LABEL)].strip()
+    return text
+
+
 def find_press(title_anchor, max_levels=8):
     """제목 링크에서 위로 올라가며 같은 카드 안의 언론사 링크를 찾는다.
 
     네이버 검색 결과 카드의 클래스명은 빌드마다 무작위 해시라 CSS 클래스로
     선택할 수 없다. 대신 data-heatmap-target 속성(.tit=제목, .prof=언론사)은
     안정적으로 유지되므로 이를 기준으로 같은 카드 내에서 언론사 링크를 찾는다.
+    같은 카드 안에 언론사 링크가 두 개(썸네일 이미지용, 언론사 이름 텍스트용) 있는데
+    썸네일용은 숨김 문구만 있어 clean_link_text 적용 후 비어 있으므로 자연히 건너뛴다.
     """
     node = title_anchor
     for _ in range(max_levels):
         node = node.parent
         if node is None:
             break
-        prof = node.select_one('a[data-heatmap-target=".prof"]')
-        if prof:
-            text = prof.get_text(strip=True)
+        for prof in node.select('a[data-heatmap-target=".prof"]'):
+            text = clean_link_text(prof)
             if text:
                 return text
     return ""
@@ -74,7 +86,7 @@ def fetch_news():
 
         for a in title_anchors:
             link = a.get("href")
-            title = a.get_text(strip=True)
+            title = clean_link_text(a)
             if not link or link in seen_links:
                 continue
             seen_links.add(link)
