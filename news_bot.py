@@ -50,11 +50,13 @@ def fetch_news():
         soup = BeautifulSoup(resp.text, "html.parser")
         anchors = soup.select("a.news_tit")
         if not anchors:
-            snippet = " ".join(resp.text.split())[:800]
+            idx = resp.text.find('id="main_pack"')
+            if idx == -1:
+                idx = 0
+            snippet = " ".join(resp.text[idx : idx + 4000].split())
             print(
-                f"[debug] page={page} status={resp.status_code} "
-                f"html_len={len(resp.text)} title_tag={soup.title.get_text() if soup.title else None!r} "
-                f"snippet={snippet!r}",
+                f"[debug] page={page} status={resp.status_code} html_len={len(resp.text)} "
+                f"main_pack_found={idx != 0} snippet={snippet!r}",
                 file=sys.stderr,
             )
             break
