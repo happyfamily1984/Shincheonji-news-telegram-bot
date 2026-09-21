@@ -50,6 +50,13 @@ def fetch_news():
         soup = BeautifulSoup(resp.text, "html.parser")
         anchors = soup.select("a.news_tit")
         if not anchors:
+            snippet = " ".join(resp.text.split())[:800]
+            print(
+                f"[debug] page={page} status={resp.status_code} "
+                f"html_len={len(resp.text)} title_tag={soup.title.get_text() if soup.title else None!r} "
+                f"snippet={snippet!r}",
+                file=sys.stderr,
+            )
             break
 
         for a in anchors:
