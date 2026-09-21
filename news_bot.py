@@ -50,14 +50,16 @@ def fetch_news():
         soup = BeautifulSoup(resp.text, "html.parser")
         anchors = soup.select("a.news_tit")
         if not anchors:
-            anchor_idx = resp.text.find('target="_blank"')
-            if anchor_idx == -1:
-                anchor_idx = resp.text.find('id="main_pack"')
-            start_idx = max(anchor_idx - 300, 0)
+            marker_idx = resp.text.find("news.naver.com", 45000)
+            if marker_idx == -1:
+                marker_idx = resp.text.find("news.naver.com")
+            if marker_idx == -1:
+                marker_idx = 45000
+            start_idx = max(marker_idx - 400, 0)
             snippet = " ".join(resp.text[start_idx : start_idx + 3500].split())
             print(
                 f"[debug] page={page} status={resp.status_code} html_len={len(resp.text)} "
-                f"anchor_idx={anchor_idx} snippet={snippet!r}",
+                f"marker_idx={marker_idx} snippet={snippet!r}",
                 file=sys.stderr,
             )
             break
