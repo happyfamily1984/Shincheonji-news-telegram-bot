@@ -55,8 +55,8 @@ def fetch_news():
                 marker_idx = resp.text.find("news.naver.com")
             if marker_idx == -1:
                 marker_idx = 45000
-            start_idx = max(marker_idx - 400, 0)
-            snippet = " ".join(resp.text[start_idx : start_idx + 3500].split())
+            start_idx = max(marker_idx - 400, 0) + 3000
+            snippet = " ".join(resp.text[start_idx : start_idx + 4500].split())
             print(
                 f"[debug] page={page} status={resp.status_code} html_len={len(resp.text)} "
                 f"marker_idx={marker_idx} snippet={snippet!r}",
