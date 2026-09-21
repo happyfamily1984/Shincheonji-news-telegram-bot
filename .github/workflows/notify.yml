@@ -2,8 +2,8 @@ name: Naver News Notifier
 
 on:
   schedule:
-    # KST 10:00 / 13:00 / 18:00 == UTC 01:00 / 04:00 / 09:00
-    - cron: "0 1,4,9 * * *"
+    # KST 07:00~22:00 매 정각 (1시간 간격) == UTC 22,23시(전날) + 0~13시
+    - cron: "0 22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13 * * *"
   workflow_dispatch: {}
 
 permissions:
