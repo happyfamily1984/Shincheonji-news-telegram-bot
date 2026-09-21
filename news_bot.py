@@ -98,9 +98,6 @@ def fetch_news():
             "Naver's page markup may have changed and selectors may need an update.",
             file=sys.stderr,
         )
-    else:
-        for it in items[:2]:
-            print(f"[debug] sample parsed: title={it['title']!r} press={it['press']!r}", file=sys.stderr)
 
     return items
 
