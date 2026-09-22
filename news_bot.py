@@ -23,7 +23,7 @@ QUERY = os.environ.get("NEWS_QUERY") or "신천지"
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash"
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-flash-latest"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
 SEEN_FILE = Path(__file__).parent / "seen.json"
@@ -138,7 +138,8 @@ def summarize_with_gemini(title, article_text):
         json={"contents": [{"parts": [{"text": prompt}]}]},
         timeout=20,
     )
-    resp.raise_for_status()
+    if not resp.ok:
+        raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:300]}")
 
     data = resp.json()
     candidates = data.get("candidates") or []
