@@ -22,11 +22,16 @@ from bs4 import BeautifulSoup
 QUERY = os.environ.get("NEWS_QUERY") or "신천지"
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash"
+GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
 SEEN_FILE = Path(__file__).parent / "seen.json"
 MAX_SEEN = 1000
 TELEGRAM_MAX_LEN = 3500
 SEARCH_PAGES = 3  # 페이지당 최대 10건, 최근 30건까지 확인
+ARTICLE_TEXT_MAX_LEN = 6000  # 요약 프롬프트에 넣을 기사 본문 최대 길이
+SUMMARY_MAX_LEN = 300  # 텔레그램 메시지에 넣을 요약 최대 길이
 
 NEWS_URL = "https://search.naver.com/search.naver"
 REQUEST_HEADERS = {
@@ -102,6 +107,57 @@ def fetch_news():
     return items
 
 
+def fetch_article_text(url):
+    """기사 페이지에서 본문으로 추정되는 텍스트를 추출한다(요약용, 최선 노력)."""
+    resp = requests.get(url, headers=REQUEST_HEADERS, timeout=15)
+    resp.raise_for_status()
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    for tag in soup(["script", "style"]):
+        tag.decompose()
+
+    paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")]
+    text = " ".join(p for p in paragraphs if p)
+    if not text:
+        text = soup.get_text(" ", strip=True)
+    return text[:ARTICLE_TEXT_MAX_LEN]
+
+
+def summarize_with_gemini(title, article_text):
+    if not GEMINI_API_KEY or not article_text:
+        return ""
+
+    prompt = (
+        "다음 뉴스 기사를 한국어로 2~3문장 이내로 간결하게 요약해줘. "
+        "핵심 사실만 전달하고 추측이나 의견은 넣지 마.\n\n"
+        f"제목: {title}\n\n본문:\n{article_text}"
+    )
+    resp = requests.post(
+        GEMINI_URL,
+        params={"key": GEMINI_API_KEY},
+        json={"contents": [{"parts": [{"text": prompt}]}]},
+        timeout=20,
+    )
+    resp.raise_for_status()
+
+    data = resp.json()
+    candidates = data.get("candidates") or []
+    if not candidates:
+        return ""
+    parts = candidates[0].get("content", {}).get("parts") or []
+    summary = "".join(p.get("text", "") for p in parts).strip()
+    return summary[:SUMMARY_MAX_LEN]
+
+
+def add_summary(item):
+    try:
+        article_text = fetch_article_text(item["link"])
+        item["summary"] = summarize_with_gemini(item["title"], article_text)
+    except Exception as exc:  # noqa: BLE001
+        print(f"[warn] failed to summarize '{item['title']}': {exc}", file=sys.stderr)
+        item["summary"] = ""
+
+
 def load_seen():
     if SEEN_FILE.exists():
         data = json.loads(SEEN_FILE.read_text(encoding="utf-8"))
@@ -141,7 +197,14 @@ def format_article(item):
     title = html.escape(item.get("title", ""))
     press = item.get("press", "")
     press_part = f" ({html.escape(press)})" if press else ""
-    return f"📰 <b>{title}</b>{press_part}\n{item['link']}"
+    link = html.escape(item["link"], quote=True)
+
+    lines = [f"📰 <b>{title}</b>{press_part}"]
+    summary = item.get("summary", "")
+    if summary:
+        lines.append(f"📝 {html.escape(summary)}")
+    lines.append(f'🔗 <a href="{link}">링크</a>')
+    return "\n".join(lines)
 
 
 def chunk_messages(articles):
@@ -178,6 +241,12 @@ def main():
         return
 
     new_items.reverse()  # 오래된 기사부터 순서대로 발송
+
+    if GEMINI_API_KEY:
+        for item in new_items:
+            add_summary(item)
+    else:
+        print("[warn] GEMINI_API_KEY not set; skipping article summaries.", file=sys.stderr)
 
     for chunk in chunk_messages(new_items):
         send_telegram(chunk)
