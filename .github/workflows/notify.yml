@@ -34,6 +34,11 @@ jobs:
         run: |
           curl -s "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY" \
             | python3 -c "import json,sys; d=json.load(sys.stdin); print([m['name'] for m in d.get('models', [])] or d)"
+          echo "--- generateContent test ---"
+          curl -s -w '\nHTTP_STATUS:%{http_code}\n' \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$GEMINI_API_KEY" \
+            -H 'Content-Type: application/json' \
+            -d '{"contents":[{"parts":[{"text":"hello"}]}]}'
 
       - name: Run news bot
         env:
