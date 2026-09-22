@@ -108,18 +108,32 @@ def fetch_news():
 
 
 def fetch_article_text(url):
-    """기사 페이지에서 본문으로 추정되는 텍스트를 추출한다(요약용, 최선 노력)."""
+    """기사 페이지에서 본문으로 추정되는 텍스트를 추출한다(요약용, 최선 노력).
+
+    resp.content(원본 바이트)를 넘겨 BeautifulSoup이 메타 태그 등으로 인코딩을
+    직접 판별하게 한다. Content-Type에 charset이 없는 구형 언론사 사이트(EUC-KR 등)를
+    resp.text(= requests가 추정한 인코딩)로 읽으면 글자가 깨질 수 있기 때문.
+    """
     resp = requests.get(url, headers=REQUEST_HEADERS, timeout=15)
     resp.raise_for_status()
 
-    soup = BeautifulSoup(resp.text, "html.parser")
-    for tag in soup(["script", "style"]):
+    soup = BeautifulSoup(resp.content, "html.parser")
+    for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
         tag.decompose()
 
-    paragraphs = [p.get_text(" ", strip=True) for p in soup.find_all("p")]
-    text = " ".join(p for p in paragraphs if p)
-    if not text:
-        text = soup.get_text(" ", strip=True)
+    paragraphs = [p for p in soup.find_all("p") if p.get_text(strip=True)]
+    if not paragraphs:
+        return soup.get_text(" ", strip=True)[:ARTICLE_TEXT_MAX_LEN]
+
+    # 기사 본문 <p>들은 보통 같은 컨테이너 안에 몰려 있고, 관련기사/광고 위젯의
+    # <p>는 페이지 곳곳에 흩어져 있다. 같은 부모를 공유하는 <p>들을 묶어 텍스트
+    # 분량이 가장 많은 그룹을 본문으로 간주해, 무관한 위젯 텍스트가 섞이는 것을 줄인다.
+    groups = {}
+    for p in paragraphs:
+        groups.setdefault(id(p.parent), []).append(p)
+    best_group = max(groups.values(), key=lambda ps: sum(len(p.get_text(strip=True)) for p in ps))
+
+    text = " ".join(p.get_text(" ", strip=True) for p in best_group)
     return text[:ARTICLE_TEXT_MAX_LEN]
 
 
