@@ -89,22 +89,13 @@ def fetch_news():
         if not title_anchors:
             break
 
-        for i, a in enumerate(title_anchors):
+        for a in title_anchors:
             link = a.get("href")
             title = clean_link_text(a)
             if not link or link in seen_links:
                 continue
             seen_links.add(link)
             items.append({"title": title, "link": link, "press": find_press(a)})
-
-            if i == 0:
-                card = a
-                for _ in range(4):
-                    if card.parent is None:
-                        break
-                    card = card.parent
-                snippet = " ".join(str(card)[:3000].split())
-                print(f"[debug] card html sample: {snippet!r}", file=sys.stderr)
 
     if not items:
         print(
@@ -176,9 +167,14 @@ def summarize_with_gemini(title, article_text):
 def add_summary(item):
     try:
         article_text = fetch_article_text(item["link"])
+        print(
+            f"[debug] fetched article_text len={len(article_text)} for {item['link']}",
+            file=sys.stderr,
+        )
         item["summary"] = summarize_with_gemini(item["title"], article_text)
+        print(f"[debug] summary result: {item['summary']!r}", file=sys.stderr)
     except Exception as exc:  # noqa: BLE001
-        print(f"[warn] failed to summarize '{item['title']}': {exc}", file=sys.stderr)
+        print(f"[warn] failed to summarize '{item['title']}' ({item['link']}): {exc!r}", file=sys.stderr)
         item["summary"] = ""
 
 
