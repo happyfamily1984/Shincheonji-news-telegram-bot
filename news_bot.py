@@ -14,6 +14,7 @@ import html
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import requests
@@ -32,6 +33,8 @@ TELEGRAM_MAX_LEN = 3500
 SEARCH_PAGES = 3  # 페이지당 최대 10건, 최근 30건까지 확인
 ARTICLE_TEXT_MAX_LEN = 6000  # 요약 프롬프트에 넣을 기사 본문 최대 길이
 SUMMARY_MAX_LEN = 300  # 텔레그램 메시지에 넣을 요약 최대 길이
+GEMINI_MAX_RETRIES = 2  # 일시적 과부하(429/5xx) 대비 재시도 횟수
+GEMINI_RETRY_BACKOFF = 2  # 재시도 간 대기 시간(초), 매 회 2배씩 증가
 
 NEWS_URL = "https://search.naver.com/search.naver"
 REQUEST_HEADERS = {
@@ -146,12 +149,29 @@ def summarize_with_gemini(title, article_text):
         "핵심 사실만 전달하고 추측이나 의견은 넣지 마.\n\n"
         f"제목: {title}\n\n본문:\n{article_text}"
     )
-    resp = requests.post(
-        GEMINI_URL,
-        params={"key": GEMINI_API_KEY},
-        json={"contents": [{"parts": [{"text": prompt}]}]},
-        timeout=20,
-    )
+    resp = None
+    for attempt in range(GEMINI_MAX_RETRIES + 1):
+        resp = requests.post(
+            GEMINI_URL,
+            params={"key": GEMINI_API_KEY},
+            json={"contents": [{"parts": [{"text": prompt}]}]},
+            timeout=20,
+        )
+        if resp.ok:
+            break
+        # 429(rate limit)/5xx(일시적 과부하)는 잠시 후 재시도하면 성공하는 경우가 많다.
+        if resp.status_code == 429 or resp.status_code >= 500:
+            if attempt < GEMINI_MAX_RETRIES:
+                wait = GEMINI_RETRY_BACKOFF * (2**attempt)
+                print(
+                    f"[warn] Gemini API {resp.status_code}, retrying in {wait}s "
+                    f"(attempt {attempt + 1}/{GEMINI_MAX_RETRIES})",
+                    file=sys.stderr,
+                )
+                time.sleep(wait)
+                continue
+        break
+
     if not resp.ok:
         raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:300]}")
 
@@ -167,12 +187,7 @@ def summarize_with_gemini(title, article_text):
 def add_summary(item):
     try:
         article_text = fetch_article_text(item["link"])
-        print(
-            f"[debug] fetched article_text len={len(article_text)} for {item['link']}",
-            file=sys.stderr,
-        )
         item["summary"] = summarize_with_gemini(item["title"], article_text)
-        print(f"[debug] summary result: {item['summary']!r}", file=sys.stderr)
     except Exception as exc:  # noqa: BLE001
         print(f"[warn] failed to summarize '{item['title']}' ({item['link']}): {exc!r}", file=sys.stderr)
         item["summary"] = ""
