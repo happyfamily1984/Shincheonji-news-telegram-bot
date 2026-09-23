@@ -89,13 +89,22 @@ def fetch_news():
         if not title_anchors:
             break
 
-        for a in title_anchors:
+        for i, a in enumerate(title_anchors):
             link = a.get("href")
             title = clean_link_text(a)
             if not link or link in seen_links:
                 continue
             seen_links.add(link)
             items.append({"title": title, "link": link, "press": find_press(a)})
+
+            if i == 0:
+                card = a
+                for _ in range(4):
+                    if card.parent is None:
+                        break
+                    card = card.parent
+                snippet = " ".join(str(card)[:3000].split())
+                print(f"[debug] card html sample: {snippet!r}", file=sys.stderr)
 
     if not items:
         print(
