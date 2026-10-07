@@ -8,8 +8,8 @@ GitHub Actions 스케줄(하루 3회)로 실행되는 것을 전제로 한다.
 - 새 기사가 없으면 아무 메시지도 보내지 않는다.
 - 처음 실행될 때는 기존 기사를 기준선으로만 저장하고 알림은 보내지 않는다
   (봇을 켜기 전부터 있던 기사까지 한꺼번에 쏟아지는 것을 막기 위함).
-- 기사 본문에서 키워드가 포함된 문장과 그 앞뒤 2문장을 발췌해 함께 보여준다
-  (외부 AI 요약 API 없이 동작).
+- 기사 본문에서 키워드가 포함된 문장과 그 앞뒤 EXCERPT_CONTEXT_SENTENCES개
+  문장을 발췌해 함께 보여준다 (외부 AI 요약 API 없이 동작).
 """
 
 import html
@@ -32,7 +32,7 @@ TELEGRAM_MAX_LEN = 3500
 SEARCH_PAGES = 3  # 페이지당 최대 10건, 최근 30건까지 확인
 ARTICLE_TEXT_MAX_LEN = 6000  # 발췌 대상으로 가져올 기사 본문 최대 길이
 EXCERPT_MAX_LEN = 500  # 텔레그램 메시지에 넣을 발췌 최대 길이
-EXCERPT_CONTEXT_SENTENCES = 2  # 키워드 문장 앞뒤로 가져올 문장 수
+EXCERPT_CONTEXT_SENTENCES = 1  # 키워드 문장 앞뒤로 가져올 문장 수
 
 NEWS_URL = "https://search.naver.com/search.naver"
 REQUEST_HEADERS = {
@@ -123,19 +123,26 @@ def fetch_article_text(url):
         tag.decompose()
 
     paragraphs = [p for p in soup.find_all("p") if p.get_text(strip=True)]
-    if not paragraphs:
-        return soup.get_text(" ", strip=True)[:ARTICLE_TEXT_MAX_LEN]
+    if paragraphs:
+        # 기사 본문 <p>들은 보통 같은 컨테이너 안에 몰려 있고, 관련기사/광고 위젯의
+        # <p>는 페이지 곳곳에 흩어져 있다. 같은 부모를 공유하는 <p>들을 묶어 텍스트
+        # 분량이 가장 많은 그룹을 본문으로 간주해, 무관한 위젯 텍스트가 섞이는 것을 줄인다.
+        groups = {}
+        for p in paragraphs:
+            groups.setdefault(id(p.parent), []).append(p)
+        best_group = max(groups.values(), key=lambda ps: sum(len(p.get_text(strip=True)) for p in ps))
+        text = " ".join(p.get_text(" ", strip=True) for p in best_group)
+        return text[:ARTICLE_TEXT_MAX_LEN]
 
-    # 기사 본문 <p>들은 보통 같은 컨테이너 안에 몰려 있고, 관련기사/광고 위젯의
-    # <p>는 페이지 곳곳에 흩어져 있다. 같은 부모를 공유하는 <p>들을 묶어 텍스트
-    # 분량이 가장 많은 그룹을 본문으로 간주해, 무관한 위젯 텍스트가 섞이는 것을 줄인다.
-    groups = {}
-    for p in paragraphs:
-        groups.setdefault(id(p.parent), []).append(p)
-    best_group = max(groups.values(), key=lambda ps: sum(len(p.get_text(strip=True)) for p in ps))
-
-    text = " ".join(p.get_text(" ", strip=True) for p in best_group)
-    return text[:ARTICLE_TEXT_MAX_LEN]
+    # <p> 태그 기반 본문을 못 찾은 경우(기사 본문을 자바스크립트로 렌더링하는
+    # 사이트 등). 이때 페이지 전체 텍스트를 긁으면 내비게이션 메뉴/카테고리
+    # 목록이 섞여 들어가므로, 그 대신 언론사가 제공하는 요약 메타 태그
+    # (og:description)를 쓰는 편이 안전하다. 그것도 없으면 발췌 없이 넘어간다.
+    meta = soup.find("meta", attrs={"property": "og:description"}) or soup.find(
+        "meta", attrs={"name": "description"}
+    )
+    content = meta.get("content", "").strip() if meta else ""
+    return content[:ARTICLE_TEXT_MAX_LEN]
 
 
 SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
