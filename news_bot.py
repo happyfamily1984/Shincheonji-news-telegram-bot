@@ -8,13 +8,15 @@ GitHub Actions 스케줄(하루 3회)로 실행되는 것을 전제로 한다.
 - 새 기사가 없으면 아무 메시지도 보내지 않는다.
 - 처음 실행될 때는 기존 기사를 기준선으로만 저장하고 알림은 보내지 않는다
   (봇을 켜기 전부터 있던 기사까지 한꺼번에 쏟아지는 것을 막기 위함).
+- 기사 본문에서 키워드가 포함된 문장과 그 앞뒤 2문장을 발췌해 함께 보여준다
+  (외부 AI 요약 API 없이 동작).
 """
 
 import html
 import json
 import os
+import re
 import sys
-import time
 from pathlib import Path
 
 import requests
@@ -23,18 +25,14 @@ from bs4 import BeautifulSoup
 QUERY = os.environ.get("NEWS_QUERY") or "신천지"
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TELEGRAM_CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-flash-latest"
-GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 
 SEEN_FILE = Path(__file__).parent / "seen.json"
 MAX_SEEN = 1000
 TELEGRAM_MAX_LEN = 3500
 SEARCH_PAGES = 3  # 페이지당 최대 10건, 최근 30건까지 확인
-ARTICLE_TEXT_MAX_LEN = 6000  # 요약 프롬프트에 넣을 기사 본문 최대 길이
-SUMMARY_MAX_LEN = 300  # 텔레그램 메시지에 넣을 요약 최대 길이
-GEMINI_MAX_RETRIES = 2  # 일시적 과부하(429/5xx) 대비 재시도 횟수
-GEMINI_RETRY_BACKOFF = 2  # 재시도 간 대기 시간(초), 매 회 2배씩 증가
+ARTICLE_TEXT_MAX_LEN = 6000  # 발췌 대상으로 가져올 기사 본문 최대 길이
+EXCERPT_MAX_LEN = 500  # 텔레그램 메시지에 넣을 발췌 최대 길이
+EXCERPT_CONTEXT_SENTENCES = 2  # 키워드 문장 앞뒤로 가져올 문장 수
 
 NEWS_URL = "https://search.naver.com/search.naver"
 REQUEST_HEADERS = {
@@ -140,57 +138,47 @@ def fetch_article_text(url):
     return text[:ARTICLE_TEXT_MAX_LEN]
 
 
-def summarize_with_gemini(title, article_text):
-    if not GEMINI_API_KEY or not article_text:
+SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+
+
+def split_sentences(text):
+    text = " ".join(text.split())  # 공백/줄바꿈 정규화
+    if not text:
+        return []
+    return [s.strip() for s in SENTENCE_SPLIT_RE.split(text) if s.strip()]
+
+
+def extract_context(article_text, keyword):
+    """키워드가 포함된 문장과 그 앞뒤 EXCERPT_CONTEXT_SENTENCES개 문장을 이어 붙인다.
+
+    키워드가 여러 번 나오면 각 등장 지점 주변을 모두 모으되, 범위가 겹치면 하나로
+    합치고, 겹치지 않는 범위끼리는 " (…) "로 구분해 이어 붙인다.
+    """
+    sentences = split_sentences(article_text)
+    hit_indices = [i for i, s in enumerate(sentences) if keyword in s]
+    if not hit_indices:
         return ""
 
-    prompt = (
-        "다음 뉴스 기사를 한국어로 2~3문장 이내로 간결하게 요약해줘. "
-        "핵심 사실만 전달하고 추측이나 의견은 넣지 마.\n\n"
-        f"제목: {title}\n\n본문:\n{article_text}"
-    )
-    resp = None
-    for attempt in range(GEMINI_MAX_RETRIES + 1):
-        resp = requests.post(
-            GEMINI_URL,
-            params={"key": GEMINI_API_KEY},
-            json={"contents": [{"parts": [{"text": prompt}]}]},
-            timeout=20,
-        )
-        if resp.ok:
-            break
-        # 429(rate limit)/5xx(일시적 과부하)는 잠시 후 재시도하면 성공하는 경우가 많다.
-        if resp.status_code == 429 or resp.status_code >= 500:
-            if attempt < GEMINI_MAX_RETRIES:
-                wait = GEMINI_RETRY_BACKOFF * (2**attempt)
-                print(
-                    f"[warn] Gemini API {resp.status_code}, retrying in {wait}s "
-                    f"(attempt {attempt + 1}/{GEMINI_MAX_RETRIES})",
-                    file=sys.stderr,
-                )
-                time.sleep(wait)
-                continue
-        break
+    ranges = []
+    for i in hit_indices:
+        start = max(i - EXCERPT_CONTEXT_SENTENCES, 0)
+        end = min(i + EXCERPT_CONTEXT_SENTENCES, len(sentences) - 1)
+        if ranges and start <= ranges[-1][1] + 1:
+            ranges[-1][1] = max(ranges[-1][1], end)
+        else:
+            ranges.append([start, end])
 
-    if not resp.ok:
-        raise RuntimeError(f"Gemini API {resp.status_code}: {resp.text[:300]}")
-
-    data = resp.json()
-    candidates = data.get("candidates") or []
-    if not candidates:
-        return ""
-    parts = candidates[0].get("content", {}).get("parts") or []
-    summary = "".join(p.get("text", "") for p in parts).strip()
-    return summary[:SUMMARY_MAX_LEN]
+    excerpt = " (…) ".join(" ".join(sentences[s : e + 1]) for s, e in ranges)
+    return excerpt[:EXCERPT_MAX_LEN]
 
 
-def add_summary(item):
+def add_excerpt(item):
     try:
         article_text = fetch_article_text(item["link"])
-        item["summary"] = summarize_with_gemini(item["title"], article_text)
+        item["excerpt"] = extract_context(article_text, QUERY)
     except Exception as exc:  # noqa: BLE001
-        print(f"[warn] failed to summarize '{item['title']}' ({item['link']}): {exc!r}", file=sys.stderr)
-        item["summary"] = ""
+        print(f"[warn] failed to extract excerpt for '{item['title']}' ({item['link']}): {exc!r}", file=sys.stderr)
+        item["excerpt"] = ""
 
 
 def load_seen():
@@ -235,9 +223,9 @@ def format_article(item):
     link = html.escape(item["link"], quote=True)
 
     lines = [f"📰 <b>{title}</b>{press_part}"]
-    summary = item.get("summary", "")
-    if summary:
-        lines.append(f"📝 {html.escape(summary)}")
+    excerpt = item.get("excerpt", "")
+    if excerpt:
+        lines.append(f"📝 {html.escape(excerpt)}")
     lines.append(f'🔗 <a href="{link}">링크</a>')
     return "\n".join(lines)
 
@@ -277,11 +265,8 @@ def main():
 
     new_items.reverse()  # 오래된 기사부터 순서대로 발송
 
-    if GEMINI_API_KEY:
-        for item in new_items:
-            add_summary(item)
-    else:
-        print("[warn] GEMINI_API_KEY not set; skipping article summaries.", file=sys.stderr)
+    for item in new_items:
+        add_excerpt(item)
 
     for chunk in chunk_messages(new_items):
         send_telegram(chunk)
