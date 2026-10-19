@@ -422,7 +422,11 @@
     "http://www.newstomato.com/ReadNews.aspx?no=1317200&inflow=N",
     "http://www.domin.co.kr/news/articleView.html?idxno=1572388",
     "https://view.asiae.co.kr/article/2026101917483778576",
-    "https://www.daejonilbo.com/news/articleView.html?idxno=2307988"
+    "https://www.daejonilbo.com/news/articleView.html?idxno=2307988",
+    "https://www.dt.co.kr/article/12089973?ref=naver",
+    "https://www.newdaily.co.kr/site/data/html/2026/10/19/2026101900364.html",
+    "https://www.sisajournal.com/news/articleView.html?idxno=390808",
+    "https://www.ppss.kr/news/articleView.html?idxno=316282"
   ],
   "initialized": true
 }
