@@ -1,13 +1,5 @@
 {
   "seen_ids": [
-    "http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0300&key=20260921.99099007214",
-    "https://www.hankookilbo.com/news/article/A2026092117070002762?did=NA",
-    "https://view.asiae.co.kr/article/2026092118333794406",
-    "https://www.gnnews.co.kr/news/articleView.html?idxno=645999",
-    "http://www.yonhapnewstv.co.kr/news/MYH20260921220008t5l",
-    "http://www.gnmaeil.com/news/articleView.html?idxno=595272",
-    "https://www.kbsm.net/news/view.php?idx=535230",
-    "https://www.cwn.kr/news/articleView.html?idxno=57113",
     "https://www.kukinews.com/article/view/kuk202609210188",
     "https://news.sbs.co.kr/news/endPage.do?news_id=N1008763974&plink=ORI&cooper=NAVER",
     "https://www.ksmnews.co.kr/news/view.php?idx=622987",
@@ -997,7 +989,17 @@
     "https://www.dynews.co.kr/news/articleView.html?idxno=873210",
     "https://www.kyongbuk.co.kr/news/articleView.html?idxno=4090207",
     "https://biz.heraldcorp.com/article/10931146?ref=naver",
-    "https://www.kado.net/news/articleView.html?idxno=2083653"
+    "https://www.kado.net/news/articleView.html?idxno=2083653",
+    "https://www.imaeil.com/page/view/2026110922421218879",
+    "https://n.news.naver.com/mnews/article/214/0001534479?sid=100",
+    "https://n.news.naver.com/mnews/article/214/0001534480?sid=100",
+    "https://www.ksilbo.co.kr/news/articleView.html?idxno=1072026",
+    "http://www.kwangju.co.kr/article.php?aid=1794237000805177074",
+    "https://www.joongang.co.kr/article/25477143",
+    "https://www.ppss.kr/news/articleView.html?idxno=319987",
+    "https://www.yna.co.kr/view/AKR20261109148300001?input=1195m",
+    "https://www.joongang.co.kr/article/25477171",
+    "https://www.imaeil.com/page/view/2026110915454075208"
   ],
   "initialized": true
 }
