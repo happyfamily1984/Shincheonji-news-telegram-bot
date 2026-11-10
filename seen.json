@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.kukinews.com/article/view/kuk202609210188",
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008763974&plink=ORI&cooper=NAVER",
-    "https://www.ksmnews.co.kr/news/view.php?idx=622987",
-    "https://www.ccdailynews.com/news/articleView.html?idxno=2442544",
-    "https://www.mhns.co.kr/news/articleView.html?idxno=761400",
-    "https://sports.khan.co.kr/article/202609221158003?pt=nv",
-    "http://www.breaknews.com/1238494",
-    "http://www.cctimes.kr/news/articleView.html?idxno=929012",
-    "https://www.ftimes.kr/news/articleView.html?idxno=39903",
-    "http://www.metroseoul.co.kr/article/20260922500470",
     "https://lawtalknews.co.kr/article/EPK0SWD9DNOK",
     "https://www.discoverynews.kr/news/articleView.html?idxno=1102433",
     "http://www.gndomin.com/news/articleView.html?idxno=490491",
@@ -999,7 +989,17 @@
     "https://www.ppss.kr/news/articleView.html?idxno=319987",
     "https://www.yna.co.kr/view/AKR20261109148300001?input=1195m",
     "https://www.joongang.co.kr/article/25477171",
-    "https://www.imaeil.com/page/view/2026110915454075208"
+    "https://www.imaeil.com/page/view/2026110915454075208",
+    "https://www.newdaily.co.kr/site/data/html/2026/11/10/2026111000191.html",
+    "http://www.chungnamilbo.co.kr/news/articleView.html?idxno=919863",
+    "https://www.yna.co.kr/view/AKR20261110078100001?input=1195m",
+    "https://www.newdaily.co.kr/site/data/html/2026/11/10/2026111000186.html",
+    "https://www.news1.kr/politics/assembly/6348971",
+    "https://www.munhwa.com/article/11630204?ref=naver",
+    "https://www.ppss.kr/news/articleView.html?idxno=320081",
+    "https://www.straightnews.co.kr/news/articleView.html?idxno=315007",
+    "https://www.gokorea.kr/news/articleView.html?idxno=884936",
+    "https://www.gokorea.kr/news/articleView.html?idxno=884940"
   ],
   "initialized": true
 }
