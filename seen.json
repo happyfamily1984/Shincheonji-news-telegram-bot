@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.newscj.com/news/articleView.html?idxno=3435451",
-    "https://shindonga.donga.com/3/all/13/6397078/1",
-    "https://www.pressian.com/pages/articles/2026092317351595274?utm_source=naver&utm_medium=search",
-    "https://www.kmib.co.kr/article/view.asp?arcid=9000017343&cp=nv",
-    "https://www.goodnews1.com/news/articleView.html?idxno=464488",
-    "https://www.kbsm.net/news/view.php?idx=535617",
-    "https://www.dt.co.kr/article/12085973?ref=naver",
-    "http://www.mbn.co.kr/pages/news/newsView.php?news_seq_no=5221644",
-    "https://www.kmib.co.kr/article/view.asp?arcid=9000017654&cp=nv",
-    "https://www.newsis.com/view/NISX20260926_0003803595",
     "https://www.news1.kr/politics/assembly/6302603",
     "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00006&news_seq_no=5221716",
     "https://news.tf.co.kr/read/ptoday/2369934.htm",
@@ -999,7 +989,17 @@
     "https://www.kukinews.com/article/view/kuk202611110177",
     "https://news.jtbc.co.kr/article/NB12327630?influxDiv=NAVER",
     "https://www.mk.co.kr/article/12205655",
-    "https://www.nocutnews.co.kr/news/6605519?utm_source=naver&utm_medium=article&utm_campaign=20261111174559"
+    "https://www.nocutnews.co.kr/news/6605519?utm_source=naver&utm_medium=article&utm_campaign=20261111174559",
+    "https://www.natv.go.kr/natv/news/newsView.do?newsId=514554",
+    "http://www.gnmaeil.com/news/articleView.html?idxno=598533",
+    "https://news.cpbc.co.kr/article/1176983?division=NAVER",
+    "https://www.news1.kr/politics/assembly/6351149",
+    "http://www.yonhapnewstv.co.kr/news/MYH20261111225549UGs",
+    "https://www.mdtoday.co.kr/news/articleView.html?idxno=624591",
+    "https://www.edaily.co.kr/News/Read?newsId=06566566645644736&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+    "https://www.ppss.kr/news/articleView.html?idxno=320452",
+    "https://www.kado.net/news/articleView.html?idxno=2084300",
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008841884&plink=ORI&cooper=NAVER"
   ],
   "initialized": true
 }
