@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.news1.kr/politics/assembly/6302603",
-    "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00006&news_seq_no=5221716",
-    "https://news.tf.co.kr/read/ptoday/2369934.htm",
-    "https://www.joongang.co.kr/article/25465146",
-    "https://news.einfomax.co.kr/news/articleView.html?idxno=4436614",
-    "https://www.newsis.com/view/NISX20260928_0003804691",
-    "https://www.mediapen.com/news/view/1126217",
-    "https://www.dailian.co.kr/news/view/1694848/?sc=Naver",
-    "https://www.edaily.co.kr/News/Read?newsId=02243526645584712&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
-    "http://www.newstomato.com/ReadNews.aspx?no=1314884&inflow=N",
     "https://www.g-enews.com/view.php?ud=2026092810022767198fbfc802b3_1",
     "https://www.mt.co.kr/politics/2026/09/28/2026092810113049847",
     "https://www.hidomin.com/news/articleView.html?idxno=722758",
@@ -999,7 +989,17 @@
     "https://www.edaily.co.kr/News/Read?newsId=06566566645644736&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
     "https://www.ppss.kr/news/articleView.html?idxno=320452",
     "https://www.kado.net/news/articleView.html?idxno=2084300",
-    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008841884&plink=ORI&cooper=NAVER"
+    "https://news.sbs.co.kr/news/endPage.do?news_id=N1008841884&plink=ORI&cooper=NAVER",
+    "https://www.mt.co.kr/politics/2026/11/12/2026111210120057072",
+    "https://www.ikbc.co.kr/article/view/kbc202611120037",
+    "http://www.queen.co.kr/news/articleView.html?idxno=466204",
+    "http://www.joseilbo.com/news/news_read.php?uid=579508&class=32&grp=",
+    "https://www.munhwa.com/article/11630786?ref=naver",
+    "http://www.yonhapnewstv.co.kr/news/AKR20261112112843mKn",
+    "https://www.kyeongin.com/article/1774621",
+    "https://www.sisajournal.com/news/articleView.html?idxno=393755",
+    "https://www.dkilbo.com/news/articleView.html?idxno=560495",
+    "https://www.newsis.com/view/NISX20261112_0003865383"
   ],
   "initialized": true
 }
