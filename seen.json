@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.g-enews.com/view.php?ud=2026092810022767198fbfc802b3_1",
-    "https://www.mt.co.kr/politics/2026/09/28/2026092810113049847",
-    "https://www.hidomin.com/news/articleView.html?idxno=722758",
-    "http://mbn.mk.co.kr/pages/news/newsView.php?category=mbn00006&news_seq_no=5221766",
-    "https://www.polinews.co.kr/news/articleView.html?idxno=744183",
-    "https://www.newsis.com/view/NISX20260928_0003805508",
-    "https://www.khan.co.kr/article/202609281513001",
-    "https://www.hg-times.com/news/articleView.html?idxno=305614",
-    "https://www.newspim.com/news/view/20260928000809",
-    "https://www.dailian.co.kr/news/view/1695151/?sc=Naver",
     "https://www.dt.co.kr/article/12086188?ref=naver",
     "http://weekly.chosun.com/news/articleView.html?idxno=55665",
     "https://www.mediatoday.co.kr/news/articleView.html?idxno=337393",
@@ -999,7 +989,17 @@
     "https://www.kyeongin.com/article/1774621",
     "https://www.sisajournal.com/news/articleView.html?idxno=393755",
     "https://www.dkilbo.com/news/articleView.html?idxno=560495",
-    "https://www.newsis.com/view/NISX20261112_0003865383"
+    "https://www.newsis.com/view/NISX20261112_0003865383",
+    "https://www.ytn.co.kr/_ln/0101_202611121816433840",
+    "https://www.news1.kr/politics/assembly/6352466",
+    "https://www.fnnews.com/news/202611121825115985",
+    "http://www.sisafocus.co.kr/news/articleView.html?idxno=367543",
+    "https://www.sisaweek.com/news/articleView.html?idxno=238957",
+    "https://www.hani.co.kr/arti/politics/assembly/1287078.html",
+    "http://www.jjn.co.kr/news/articleView.html?idxno=1057170",
+    "http://www.mbn.co.kr/pages/news/newsView.php?news_seq_no=5230529",
+    "https://www.polinews.co.kr/news/articleView.html?idxno=748353",
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000559691"
   ],
   "initialized": true
 }
