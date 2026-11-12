@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.dt.co.kr/article/12086188?ref=naver",
-    "http://weekly.chosun.com/news/articleView.html?idxno=55665",
-    "https://www.mediatoday.co.kr/news/articleView.html?idxno=337393",
-    "https://www.wikitree.co.kr/articles/1162508",
-    "http://www.newstomato.com/ReadNews.aspx?no=1315020&inflow=N",
-    "https://www.nocutnews.co.kr/news/6584055?utm_source=naver&utm_medium=article&utm_campaign=20260928101939",
-    "https://www.newscj.com/news/articleView.html?idxno=3436228",
-    "https://www.nocutnews.co.kr/news/6584080?utm_source=naver&utm_medium=article&utm_campaign=20260929083845",
-    "https://www.nocutnews.co.kr/news/6584257?utm_source=naver&utm_medium=article&utm_campaign=20260929100345",
-    "https://www.newscj.com/news/articleView.html?idxno=3436329",
     "https://www.wikitree.co.kr/articles/1162705",
     "https://www.newsnjoy.or.kr/news/articleView.html?idxno=400783",
     "https://www.tournews21.com/news/articleView.html?idxno=144535",
@@ -999,7 +989,17 @@
     "http://www.jjn.co.kr/news/articleView.html?idxno=1057170",
     "http://www.mbn.co.kr/pages/news/newsView.php?news_seq_no=5230529",
     "https://www.polinews.co.kr/news/articleView.html?idxno=748353",
-    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000559691"
+    "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000559691",
+    "https://www.jjan.kr/article/20261112500539",
+    "https://www.joongboo.com/news/articleView.html?idxno=363742406",
+    "http://www.yonhapnewstv.co.kr/news/MYH20261112224727z9L",
+    "https://news.cpbc.co.kr/article/1177002?division=NAVER",
+    "https://www.topstarnews.net/news/articleView.html?idxno=16275290",
+    "https://www.slist.kr/news/articleView.html?idxno=781261",
+    "https://www.yna.co.kr/view/AKR20261112183100001?input=1195m",
+    "https://www.slist.kr/news/articleView.html?idxno=781263",
+    "https://www.ksilbo.co.kr/news/articleView.html?idxno=1072418",
+    "http://www.yonhapnewstv.co.kr/news/MYH20261113002318nov"
   ],
   "initialized": true
 }
