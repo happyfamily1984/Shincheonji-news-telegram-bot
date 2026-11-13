@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.wikitree.co.kr/articles/1162705",
-    "https://www.newsnjoy.or.kr/news/articleView.html?idxno=400783",
-    "https://www.tournews21.com/news/articleView.html?idxno=144535",
-    "https://www.edaily.co.kr/News/Read?newsId=04555926645585040&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
-    "https://www.huffingtonpost.kr/article/260851",
-    "https://www.newscj.com/news/articleView.html?idxno=3436598",
-    "https://www.ccdailynews.com/news/articleView.html?idxno=2443708",
-    "https://www.nocutnews.co.kr/news/6584767?utm_source=naver&utm_medium=article&utm_campaign=20260929100051",
-    "http://www.pckworld.com/article.php?aid=11227499307",
-    "https://www.inews365.com/news/article.html?no=937674",
     "https://www.newscj.com/news/articleView.html?idxno=3436897",
     "https://www.newscj.com/news/articleView.html?idxno=3436900",
     "http://www.apparelnews.co.kr/news/news_view/?idx=227971",
@@ -999,7 +989,17 @@
     "https://www.yna.co.kr/view/AKR20261112183100001?input=1195m",
     "https://www.slist.kr/news/articleView.html?idxno=781263",
     "https://www.ksilbo.co.kr/news/articleView.html?idxno=1072418",
-    "http://www.yonhapnewstv.co.kr/news/MYH20261113002318nov"
+    "http://www.yonhapnewstv.co.kr/news/MYH20261113002318nov",
+    "https://www.segye.com/newsView/20261113506676?OutUrl=naver",
+    "https://www.pennmike.com/news/articleView.html?idxno=131728",
+    "https://www.wikitree.co.kr/articles/1174303",
+    "https://news.einfomax.co.kr/news/articleView.html?idxno=4444640",
+    "https://www.news1.kr/politics/assembly/6353075",
+    "https://www.ziksir.com/news/articleView.html?idxno=153229",
+    "http://www.sisafocus.co.kr/news/articleView.html?idxno=367556",
+    "https://dgmbc.com/NewsArticle/873206",
+    "https://www.newdaily.co.kr/site/data/html/2026/11/13/2026111300115.html",
+    "https://www.edaily.co.kr/News/Read?newsId=03299686645645392&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article"
   ],
   "initialized": true
 }
