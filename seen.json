@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.newscj.com/news/articleView.html?idxno=3437265",
-    "https://www.newscj.com/news/articleView.html?idxno=3437268",
-    "https://www.news1.kr/photos/8138425",
-    "https://www.news1.kr/photos/8138426",
-    "https://www.nocutnews.co.kr/news/6586155?utm_source=naver&utm_medium=article&utm_campaign=20261001100015",
-    "https://www.ytn.co.kr/_ln/0103_202610012334234960",
-    "https://sports.donga.com/region/article/all/20261002/134773764/1",
-    "https://lawtalknews.co.kr/article/PGXTLR8HG5LL",
-    "https://www.mhns.co.kr/news/articleView.html?idxno=762598",
-    "https://www.discoverynews.kr/news/articleView.html?idxno=1103192",
     "https://www.kgnews.co.kr/news/article.html?no=913853",
     "https://www.newscj.com/news/articleView.html?idxno=3437481",
     "https://www.pointdaily.co.kr/news/articleView.html?idxno=321232",
@@ -999,7 +989,17 @@
     "http://www.mbn.co.kr/pages/news/newsView.php?news_seq_no=5230795",
     "http://www.mbn.co.kr/pages/news/newsView.php?news_seq_no=5230784",
     "https://www.ichannela.com/news/main/news_detailPage.do?publishId=000000559885",
-    "https://news.jtbc.co.kr/article/NB12328000?influxDiv=NAVER"
+    "https://news.jtbc.co.kr/article/NB12328000?influxDiv=NAVER",
+    "https://www.goodmorningcc.com/news/articleView.html?idxno=455811",
+    "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8712698&ref=A",
+    "https://news.cpbc.co.kr/article/1177018?division=NAVER",
+    "https://news.tf.co.kr/read/ptoday/2388783.htm",
+    "https://www.joongang.co.kr/article/25478491",
+    "https://www.chosun.com/opinion/editorial/2026/11/14/ESUUCOCQBREZBD3OPQ3V4YEGE4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+    "https://www.chosun.com/politics/politics_general/2026/11/14/IOIUOT4OLRADNGN7UMTHLD44FI/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+    "https://www.chosun.com/politics/assembly/2026/11/14/OYQ2IXNK7RB4ZP2WCWQKNQILA4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+    "https://www.donga.com/news/Politics/article/all/20261113/135023171/2",
+    "https://www.joongang.co.kr/article/25478555"
   ],
   "initialized": true
 }
