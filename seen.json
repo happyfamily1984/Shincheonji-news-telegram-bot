@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.kgnews.co.kr/news/article.html?no=913853",
-    "https://www.newscj.com/news/articleView.html?idxno=3437481",
-    "https://www.pointdaily.co.kr/news/articleView.html?idxno=321232",
-    "https://www.newscj.com/news/articleView.html?idxno=3437545",
-    "https://www.newsnjoy.or.kr/news/articleView.html?idxno=400790",
-    "https://www.newscj.com/news/articleView.html?idxno=3437600",
-    "https://www.slist.kr/news/articleView.html?idxno=770803",
-    "https://www.newsnjoy.or.kr/news/articleView.html?idxno=400791",
-    "https://www.shinailbo.co.kr/news/articleView.html?idxno=5068481",
-    "https://sports.donga.com/region/article/all/20261004/134782086/1",
     "https://www.tournews21.com/news/articleView.html?idxno=144933",
     "https://www.newscj.com/news/articleView.html?idxno=3437743",
     "https://www.ilyosisa.co.kr/news/article.html?no=258139",
@@ -999,7 +989,17 @@
     "https://www.chosun.com/politics/politics_general/2026/11/14/IOIUOT4OLRADNGN7UMTHLD44FI/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
     "https://www.chosun.com/politics/assembly/2026/11/14/OYQ2IXNK7RB4ZP2WCWQKNQILA4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
     "https://www.donga.com/news/Politics/article/all/20261113/135023171/2",
-    "https://www.joongang.co.kr/article/25478555"
+    "https://www.joongang.co.kr/article/25478555",
+    "https://www.viva100.com/article/20261113500496",
+    "https://www.sportschosun.com/entertainment/2026-11-14/202611140100094130008846",
+    "https://www.joongang.co.kr/article/25478598",
+    "https://www.mediafine.co.kr/news/articleView.html?idxno=95230",
+    "https://news-s.kr/view.html?id=L2611140910511d58",
+    "https://news.bbsi.co.kr/news/articleView.html?idxno=4118546",
+    "https://www.thepublic.kr/news/articleView.html?idxno=326634",
+    "https://www.ikbc.co.kr/article/view/kbc202611140012",
+    "https://www.shinailbo.co.kr/news/articleView.html?idxno=5083226",
+    "https://imnews.imbc.com/news/2026/politics/article/6865621_36911.html"
   ],
   "initialized": true
 }
