@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.lawtimes.co.kr/news/articleView.html?idxno=227281",
-    "https://www.edaily.co.kr/News/Read?newsId=03768726645610296&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
-    "https://www.ggilbo.com/news/articleView.html?idxno=1185419",
-    "https://www.goodnews1.com/news/articleView.html?idxno=464858",
-    "https://www.newsworks.co.kr/news/articleView.html?idxno=855731",
-    "http://www.cts.tv/news/view?ncate=&dpid=342855",
-    "https://www.donga.com/news/Politics/article/all/20261007/134799003/1",
-    "https://www.wikitree.co.kr/articles/1164451",
-    "https://www.dailian.co.kr/news/view/1698599/?sc=Naver",
-    "https://sports.khan.co.kr/article/202610070921003?pt=nv",
     "https://www.etoday.co.kr/news/view/2633220",
     "https://www.ajunews.com/view/20261007090507599",
     "https://www.mt.co.kr/politics/2026/10/07/2026100709171039443",
@@ -999,7 +989,17 @@
     "https://www.news1.kr/politics/assembly/6354111",
     "http://www.yonhapnewstv.co.kr/news/MYH20261114173140uET",
     "https://www.viewsnnews.com/article?q=239698",
-    "https://www.newdaily.co.kr/site/data/html/2026/11/14/2026111450017.html"
+    "https://www.newdaily.co.kr/site/data/html/2026/11/14/2026111450017.html",
+    "https://news.tvchosun.com/site/data/html_dir/2026/11/14/2026111490085.html",
+    "https://www.newscj.com/news/articleView.html?idxno=3448741",
+    "http://www.mbn.co.kr/pages/news/newsView.php?news_seq_no=5230887",
+    "https://www.moneystorm.kr/news/articleView.html?idxno=8430",
+    "https://www.hankookilbo.com/news/article/A2026111421010003151?did=NA",
+    "https://news.tf.co.kr/read/ptoday/2388858.htm",
+    "https://www.mediatoday.co.kr/news/articleView.html?idxno=338460",
+    "https://www.ytn.co.kr/_ln/0101_202611142252391430",
+    "https://www.newscj.com/news/articleView.html?idxno=3448744",
+    "http://weekly.chosun.com/news/articleView.html?idxno=57129"
   ],
   "initialized": true
 }
