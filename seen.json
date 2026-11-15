@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.etoday.co.kr/news/view/2633220",
-    "https://www.ajunews.com/view/20261007090507599",
-    "https://www.mt.co.kr/politics/2026/10/07/2026100709171039443",
-    "https://www.newsis.com/view/NISX20261007_0003816875",
-    "https://www.kyeonggi.com/article/20261007580019",
-    "https://www.mydaily.co.kr/page/view/2026100709242001517",
-    "http://www.stoo.com/article.php?aid=109261324780",
-    "https://www.hg-times.com/news/articleView.html?idxno=305850",
-    "http://enews.imbc.com/News/RetrieveNewsInfo/520420",
-    "https://www.etoday.co.kr/news/view/2633384",
     "https://www.dailian.co.kr/news/view/1698908/?sc=Naver",
     "https://www.mk.co.kr/article/12170393",
     "https://mhnse.com/news/articleView.html?idxno=1578271",
@@ -999,7 +989,17 @@
     "https://www.mediatoday.co.kr/news/articleView.html?idxno=338460",
     "https://www.ytn.co.kr/_ln/0101_202611142252391430",
     "https://www.newscj.com/news/articleView.html?idxno=3448744",
-    "http://weekly.chosun.com/news/articleView.html?idxno=57129"
+    "http://weekly.chosun.com/news/articleView.html?idxno=57129",
+    "http://www.jeollailbo.com/news/articleView.html?idxno=816646",
+    "http://www.breaknews.com/1251057",
+    "https://www.donga.com/news/Politics/article/all/20261115/135024716/2",
+    "https://www.ytn.co.kr/_ln/0101_202611150836348038",
+    "https://www.hani.co.kr/arti/politics/politics_general/1287353.html",
+    "https://www.hankyung.com/article/202611156690i",
+    "http://www.yonhapnewstv.co.kr/news/AKR20261115101343pMN",
+    "https://www.ytn.co.kr/_ln/0101_202611151016234351",
+    "https://www.mt.co.kr/politics/2026/11/15/2026111510182460798",
+    "https://www.ikbc.co.kr/article/view/kbc202611150015"
   ],
   "initialized": true
 }
