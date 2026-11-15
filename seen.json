@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.dailian.co.kr/news/view/1698908/?sc=Naver",
-    "https://www.mk.co.kr/article/12170393",
-    "https://mhnse.com/news/articleView.html?idxno=1578271",
-    "https://www.goodkyung.com/news/articleView.html?idxno=292131",
-    "https://www.sportschosun.com/entertainment/2026-10-07/202610070100048620003142",
-    "https://www.mt.co.kr/entertainment/2026/10/07/2026100715120025613",
-    "https://www.spotvnews.co.kr/news/articleView.html?idxno=1011874",
-    "http://www.osen.co.kr/article/G1112889119",
-    "http://www.celuvmedia.com/article.php?aid=1791360965528924007",
-    "https://www.wikitree.co.kr/articles/1164528",
     "https://isplus.com/article/view/isp202610070231",
     "https://www.newscj.com/news/articleView.html?idxno=3438657",
     "https://www.mediafine.co.kr/news/articleView.html?idxno=91988",
@@ -999,7 +989,17 @@
     "http://www.yonhapnewstv.co.kr/news/AKR20261115101343pMN",
     "https://www.ytn.co.kr/_ln/0101_202611151016234351",
     "https://www.mt.co.kr/politics/2026/11/15/2026111510182460798",
-    "https://www.ikbc.co.kr/article/view/kbc202611150015"
+    "https://www.ikbc.co.kr/article/view/kbc202611150015",
+    "https://www.idaegu.co.kr/news/articleView.html?idxno=565335",
+    "http://www.newstomato.com/ReadNews.aspx?no=1320500&inflow=N",
+    "https://www.fnnews.com/news/202611151713511991",
+    "https://www.sidae.com/article/2026111512105868556",
+    "http://www.jndn.com/article.php?aid=1794730994443055093",
+    "https://www.mk.co.kr/article/12209358",
+    "https://www.christiantoday.co.kr/news/378633",
+    "https://www.dailian.co.kr/news/view/1715225/?sc=Naver",
+    "https://biz.chosun.com/policy/politics/assembly/2026/11/15/L7SSGQONIVACXM37RTFCRNQ43M/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+    "https://www.busan.com/view/busan/view.php?code=2026111511360439986"
   ],
   "initialized": true
 }
