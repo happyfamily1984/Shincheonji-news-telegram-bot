@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.polinews.co.kr/news/articleView.html?idxno=745579",
-    "https://www.yna.co.kr/view/AKR20261013055700001?input=1195m",
-    "https://www.tjb.co.kr/news05/bodo/view/id/104726",
-    "http://www.sisunnews.co.kr/news/articleView.html?idxno=247634",
-    "http://www.joseilbo.com/news/news_read.php?uid=577311&class=32&grp=",
-    "https://www.newsis.com/view/NISX20261013_0003824530",
-    "https://www.ntoday.co.kr/news/articleView.html?idxno=130041",
-    "http://www.yonhapnewstv.co.kr/news/AKR20261013182600VuV",
-    "https://www.daejonilbo.com/news/articleView.html?idxno=2306750",
-    "https://www.kmib.co.kr/article/view.asp?arcid=9000022245&cp=nv",
     "https://www.pressian.com/pages/articles/2026101317341391133?utm_source=naver&utm_medium=search",
     "https://www.hankookilbo.com/news/article/A2026101318290001727?did=NA",
     "https://www.news1.kr/politics/assembly/6318869",
@@ -999,7 +989,17 @@
     "https://www.ikbc.co.kr/article/view/kbc202611160069",
     "https://www.joongang.co.kr/article/25479069",
     "https://www.mk.co.kr/article/12210209",
-    "https://www.polinews.co.kr/news/articleView.html?idxno=748543"
+    "https://www.polinews.co.kr/news/articleView.html?idxno=748543",
+    "https://www.newscj.com/news/articleView.html?idxno=3449225",
+    "https://www.joongang.co.kr/article/25479171",
+    "https://www.hankookilbo.com/news/article/A2026111612240005021?did=NA",
+    "https://www.hankookilbo.com/news/article/A2026111321380000061?did=NA",
+    "https://www.ppss.kr/news/articleView.html?idxno=321323",
+    "https://www.chosun.com/politics/assembly/2026/11/17/KODF6IQ5QRA33JFYDAIPNRWRV4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+    "https://www.mt.co.kr/politics/2026/11/17/2026111619432022259",
+    "https://www.donga.com/news/Politics/article/all/20261117/135035825/2",
+    "https://www.newsis.com/view/NISX20261116_0003870458",
+    "https://www.seoul.co.kr/news/politics/2026/11/17/20261117001006?wlog_tag3=naver"
   ],
   "initialized": true
 }
