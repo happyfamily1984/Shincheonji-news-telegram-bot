@@ -1,15 +1,5 @@
 {
   "seen_ids": [
-    "https://www.fnnews.com/news/202610091029359742",
-    "https://www.ftimes.kr/news/articleView.html?idxno=40257",
-    "https://www.mhns.co.kr/news/articleView.html?idxno=763456",
-    "https://www.slist.kr/news/articleView.html?idxno=772469",
-    "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003273842&CMPT_CD=P0010&utm_source=naver&utm_medium=newsearch&utm_campaign=naver_news",
-    "https://www.shinailbo.co.kr/news/articleView.html?idxno=5070558",
-    "https://www.startuptoday.co.kr/news/articleView.html?idxno=815530",
-    "https://www.pointdaily.co.kr/news/articleView.html?idxno=321926",
-    "https://www.kihoilbo.co.kr/news/articleView.html?idxno=3037274",
-    "https://www.mediajeju.com/news/articleView.html?idxno=366686",
     "https://www.globalepic.co.kr/view.php?ud=20261012150004282923fd0362e7_29",
     "https://www.dkilbo.com/news/articleView.html?idxno=556883",
     "http://www.cts.tv/news/view?ncate=&dpid=343022",
@@ -999,7 +989,17 @@
     "https://m.skyedaily.com/news_view.html?ID=314612",
     "https://www.ksilbo.co.kr/news/articleView.html?idxno=1072580",
     "https://www.joongang.co.kr/article/25478853",
-    "https://www.chosun.com/politics/assembly/2026/11/16/FFBKTY3O7VAMDDDDIKQSJDBETU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news"
+    "https://www.chosun.com/politics/assembly/2026/11/16/FFBKTY3O7VAMDDDDIKQSJDBETU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+    "https://www.news1.kr/politics/assembly/6354906",
+    "https://news.tf.co.kr/read/photomovie/2389107.htm",
+    "https://www.ntoday.co.kr/news/articleView.html?idxno=130881",
+    "https://news.tf.co.kr/read/photomovie/2389110.htm",
+    "https://biz.heraldcorp.com/article/10938275?ref=naver",
+    "https://www.shinailbo.co.kr/news/articleView.html?idxno=5083661",
+    "https://www.ziksir.com/news/articleView.html?idxno=153405",
+    "https://www.kyeonggi.com/article/20261116580029",
+    "http://www.weeklytoday.com/news/articleView.html?idxno=802127",
+    "https://www.straightnews.co.kr/news/articleView.html?idxno=315409"
   ],
   "initialized": true
 }
